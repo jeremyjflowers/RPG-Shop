@@ -147,7 +147,7 @@ namespace HelloWorld
         //Performed once when the game ends
         public void End()
         {
-            
+            Console.WriteLine("Thank you for shopping!!!");  
         }
     }
 }
