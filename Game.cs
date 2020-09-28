@@ -88,7 +88,7 @@ namespace HelloWorld
 
             if(player.GetGold() < shopInventory[itemIndex].cost)
             {
-                Console.WriteLine("Sorry, you appear to have broke boi syndrome.");
+                Console.WriteLine("Sorry, you must have that broke boi syndrome.");
                 return;
             }
 
@@ -131,7 +131,7 @@ namespace HelloWorld
         //Performed once when the game begins
         public void Start()
         {
-            gameOver = false;
+  
             player = new Player();
             IntializeItems();
             shopInventory = new Item[] { bowAndarrows, specialGem, shortSword };
