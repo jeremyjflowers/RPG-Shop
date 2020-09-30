@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
@@ -34,6 +34,20 @@ namespace HelloWorld
             End();
         }
 
+        public void Save()
+        {
+            StreamWriter writer = new StreamWriter("SaveData.txt");
+            player.Save(writer);
+            writer.Close();
+        }
+
+        public void Load()
+        {
+            StreamReader reader = new StreamReader("SaveData.txt");
+            player.Load(reader);
+            reader.Close();
+        }
+
         //Intializes the items
         private void IntializeItems()
         {
@@ -58,7 +72,7 @@ namespace HelloWorld
                 input = Console.ReadKey().KeyChar;
                 if(input != '1' && input != '2')
                 {
-                    Console.WriteLine("")
+                    Console.WriteLine("I don't understand what you want to do.");
                 }
             }
         }
@@ -145,6 +159,18 @@ namespace HelloWorld
 
             //Sell item to player and replace the weapon at the index with the newly purchased item
             shop.Sell(player, itemIndex, playerIndex);
+
+            GetInput(out input, "Continue shopping", "Leave the shop", "\nWould you like to keep shopping?");
+
+            if(input == '1')
+            {
+                return;
+            }
+            else if(input == '2')
+            {
+                Console.WriteLine("\nThank you for shopping!!!");
+                gameOver = true;
+            }
         }
 
         //Performed once when the game begins
@@ -166,7 +192,7 @@ namespace HelloWorld
         //Performed once when the game ends
         public void End()
         {
-            Console.WriteLine("Thank you for shopping!!!");  
+            Console.WriteLine("Hope you enjoyed yourself! Buh-Bye!!!!!!");
         }
     }
 }

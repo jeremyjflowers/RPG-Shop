@@ -40,5 +40,17 @@ namespace HelloWorld
         {
             return inventory;
         }
+
+        public virtual void Save(StreamWriter writer)
+        {
+            //Saves the character's inventory
+            writer.WriteLine(GetInventory());
+        }
+
+        public virtual void Load(StreamReader reader)
+        {
+            //Creates variables for stored data
+            string name = reader.ReadLine();
+        }
     }
 }
