@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.IO;
 
 namespace HelloWorld
 {
@@ -44,6 +45,24 @@ namespace HelloWorld
             shortSword.cost = 12;
         }
 
+        public void GetInput(out char input, string option1, string option2, string query)
+        {
+            Console.WriteLine(query);
+            Console.WriteLine("1. " + option1);
+            Console.WriteLine("2. " + option2);
+            Console.Write("> ");
+
+            input = ' ';
+            while(input != '1' && input != '2')
+            {
+                input = Console.ReadKey().KeyChar;
+                if(input != '1' && input != '2')
+                {
+                    Console.WriteLine("")
+                }
+            }
+        }
+
         public void PrintInventory(Item[] inventory)
         {
             for(int i = 0; i < inventory.Length; i++)
@@ -55,7 +74,7 @@ namespace HelloWorld
         private void OpenShopMenu()
         {
             //Prints welcome message and choices to the screen
-            Console.WriteLine("Welcome to the shop, traveler! What would you like?");
+            Console.WriteLine("\nWelcome to the shop, traveler! What would you like?");
             PrintInventory(shopInventory);
 
             //Gets the player's input
@@ -88,12 +107,12 @@ namespace HelloWorld
 
             if(player.GetGold() < shopInventory[itemIndex].cost)
             {
-                Console.WriteLine("Sorry, you must have that broke boi syndrome.");
+                Console.WriteLine("\nSorry, you must have that broke boi syndrome.");
                 return;
             }
 
             //Asks the player to select a slot in their inventory
-            Console.WriteLine("Choose a slot to replace.");
+            Console.WriteLine("\nChoose a slot to replace.");
             PrintInventory(player.GetInventory());
 
             //Gets the player's input
@@ -131,7 +150,7 @@ namespace HelloWorld
         //Performed once when the game begins
         public void Start()
         {
-  
+            gameOver = false;
             player = new Player();
             IntializeItems();
             shopInventory = new Item[] { bowAndarrows, specialGem, shortSword };
