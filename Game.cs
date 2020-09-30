@@ -164,10 +164,12 @@ namespace HelloWorld
 
             if(input == '1')
             {
+                Save();
                 return;
             }
             else if(input == '2')
             {
+                Save();
                 Console.WriteLine("\nThank you for shopping!!!");
                 gameOver = true;
             }
