@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
@@ -8,13 +8,23 @@ namespace HelloWorld
 {
     class Player
     {
+        private string name;
         private int gold;
+        public float playerIndex;
         private Item[] inventory;
 
         public Player()
         {
-            gold = 100;
+            name = " ";
+            gold = 200;
             //Creates an inventory array for the player with three items
+            inventory = new Item[3];
+        }
+
+        public Player(string nameVal, int goldVal)
+        {
+            name = nameVal;
+            gold = goldVal;
             inventory = new Item[3];
         }
 
@@ -43,14 +53,25 @@ namespace HelloWorld
 
         public virtual void Save(StreamWriter writer)
         {
-            //Saves the character's inventory
-            writer.WriteLine(GetInventory());
+            //Saves the character's name, gold, and inventory
+            writer.WriteLine(name);
+            writer.WriteLine(gold);
+            writer.WriteLine(inventory);
         }
 
-        public virtual void Load(StreamReader reader)
+        public virtual bool Load(StreamReader reader)
         {
-            //Creates variables for stored data
             string name = reader.ReadLine();
+            float gold = 0;
+            //Checks if loading was successful
+            if(float.TryParse(reader.ReadLine(), out gold) == false)
+            {
+                return false;
+            }
+            //Set to update the member variables and return true
+            this.name = name;
+            this.gold = (int)gold;
+            return true;
         }
     }
 }

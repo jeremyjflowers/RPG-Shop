@@ -22,4 +22,22 @@ structures and file handling.
 
 
 2. Input Information
--
+- Key 1 - Enables the choice of option 1
+- Key 2 - Enables the choice of option 2
+- Key 3 - Enables the choice of option 3
+- Key 4 - Enables the choice of option 4
+- Key 5 - Enables the choice of option 5
+
+3. Output Information
+- The player selects an item from the shop based off the given input
+- The player is asked where in their inventory do they want to store the recently purchased item
+- The player is later asked if they want to continue buying items
+
+## Object Information
+
+   **File**: Game.cs
+
+
+ **Attributes**
+
+         Name:

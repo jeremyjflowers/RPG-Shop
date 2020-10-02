@@ -10,6 +10,7 @@ namespace HelloWorld
     {
         public string name;
         public int cost;
+        public int statBoost;
     }
 
     class Game
@@ -20,6 +21,8 @@ namespace HelloWorld
         private Item bowAndarrows;
         private Item specialGem;
         private Item shortSword;
+        private Item greatSword;
+        private Item bombs;
         private Item[] shopInventory;
 
         public void Run()
@@ -36,15 +39,21 @@ namespace HelloWorld
 
         public void Save()
         {
+            //Creates a new stream writer
             StreamWriter writer = new StreamWriter("SaveData.txt");
+            //Calls save for player instance
             player.Save(writer);
+            //Closes the writer
             writer.Close();
         }
 
         public void Load()
         {
+            //Creates a new stream reader
             StreamReader reader = new StreamReader("SaveData.txt");
+            //Calls load for player instance
             player.Load(reader);
+            //Closes the reader
             reader.Close();
         }
 
@@ -52,11 +61,20 @@ namespace HelloWorld
         private void IntializeItems()
         {
             bowAndarrows.name = "Bow and 30 Arrows";
-            bowAndarrows.cost = 45;
-            specialGem.name = "Healing Gem";
+            bowAndarrows.cost = 17;
+            bowAndarrows.statBoost = 10;
+            specialGem.name = "Special Gem";
             specialGem.cost = 25;
+            specialGem.statBoost = 35;
             shortSword.name = "Short Sword";
             shortSword.cost = 12;
+            shortSword.statBoost = 15;
+            greatSword.name = "Great Sword";
+            greatSword.cost = 45;
+            greatSword.statBoost = 25;
+            bombs.name = "5 Bombs";
+            bombs.cost = 9;
+            bombs.statBoost = 10;
         }
 
         public void GetInput(out char input, string option1, string option2, string query)
@@ -72,7 +90,7 @@ namespace HelloWorld
                 input = Console.ReadKey().KeyChar;
                 if(input != '1' && input != '2')
                 {
-                    Console.WriteLine("I don't understand what you want to do.");
+                    Console.WriteLine(" I don't understand what you want to do.");
                 }
             }
         }
@@ -90,6 +108,7 @@ namespace HelloWorld
             //Prints welcome message and choices to the screen
             Console.WriteLine("\nWelcome to the shop, traveler! What would you like?");
             PrintInventory(shopInventory);
+            Console.WriteLine(player.GetGold());
 
             //Gets the player's input
             char input = Console.ReadKey().KeyChar;
@@ -111,6 +130,16 @@ namespace HelloWorld
                 case '3':
                     {
                         itemIndex = 2;
+                        break;
+                    }
+                case '4':
+                    {
+                        itemIndex = 3;
+                        break;
+                    }
+                case '5':
+                    {
+                        itemIndex = 4;
                         break;
                     }
                 default:
@@ -164,7 +193,6 @@ namespace HelloWorld
 
             if(input == '1')
             {
-                Save();
                 return;
             }
             else if(input == '2')
@@ -175,14 +203,30 @@ namespace HelloWorld
             }
         }
 
+        public void OpenMainMenu()
+        {
+            char input;
+            GetInput(out input, "New Character", "Load a Character", "What would you like to do?");
+            if (input == '1')
+            {
+                Update();
+            }
+            else if (input == '2')
+            {
+                Load();
+            }
+        }
+
         //Performed once when the game begins
         public void Start()
         {
-            gameOver = false;
-            player = new Player();
+            Console.WriteLine("What is your name?");
+            string name = Console.ReadLine();
+            player = new Player(name, 200);
             IntializeItems();
-            shopInventory = new Item[] { bowAndarrows, specialGem, shortSword };
+            shopInventory = new Item[] { bowAndarrows, specialGem, shortSword, greatSword, bombs };
             shop = new Shop(shopInventory);
+            OpenMainMenu(); 
         }
 
         //Repeated until the game ends
@@ -194,7 +238,7 @@ namespace HelloWorld
         //Performed once when the game ends
         public void End()
         {
-            Console.WriteLine("Hope you enjoyed yourself! Buh-Bye!!!!!!");
+            Console.WriteLine("Thanks for playing!!!");
         }
     }
 }
