@@ -10,7 +10,6 @@ namespace HelloWorld
     {
         public string name;
         public int cost;
-        public int statBoost;
     }
 
     class Game
@@ -62,19 +61,14 @@ namespace HelloWorld
         {
             bowAndarrows.name = "Bow and 30 Arrows";
             bowAndarrows.cost = 17;
-            bowAndarrows.statBoost = 10;
             specialGem.name = "Special Gem";
             specialGem.cost = 25;
-            specialGem.statBoost = 35;
             shortSword.name = "Short Sword";
             shortSword.cost = 12;
-            shortSword.statBoost = 15;
             greatSword.name = "Great Sword";
             greatSword.cost = 45;
-            greatSword.statBoost = 25;
             bombs.name = "5 Bombs";
             bombs.cost = 9;
-            bombs.statBoost = 10;
         }
 
         public void GetInput(out char input, string option1, string option2, string query)
@@ -108,7 +102,7 @@ namespace HelloWorld
             //Prints welcome message and choices to the screen
             Console.WriteLine("\nWelcome to the shop, traveler! What would you like?");
             PrintInventory(shopInventory);
-            Console.WriteLine(player.GetGold());
+            Console.WriteLine("\nGold: " + player.GetGold());
 
             //Gets the player's input
             char input = Console.ReadKey().KeyChar;

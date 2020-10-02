@@ -10,7 +10,6 @@ namespace HelloWorld
     {
         private string name;
         private int gold;
-        public float playerIndex;
         private Item[] inventory;
 
         public Player()
@@ -31,7 +30,7 @@ namespace HelloWorld
         //Allows the player to buy items from shop
         public bool Buy(Item item, int inventoryIndex)
         {
-           if(gold >= item.cost)
+           if(GetGold() >= item.cost)
            {
                 gold -= item.cost;
                 inventory[inventoryIndex] = item;
@@ -53,10 +52,9 @@ namespace HelloWorld
 
         public virtual void Save(StreamWriter writer)
         {
-            //Saves the character's name, gold, and inventory
+            //Saves the player's name and gold
             writer.WriteLine(name);
             writer.WriteLine(gold);
-            writer.WriteLine(inventory);
         }
 
         public virtual bool Load(StreamReader reader)
