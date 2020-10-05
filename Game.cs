@@ -9,20 +9,32 @@ namespace HelloWorld
     struct Item
     {
         public string name;
+        public int statBoost;
         public int cost;
     }
 
     class Game
     {
         private bool gameOver = false;
-        private Player player;
+        private Character player;
+        private Character enemy1;
+        private Character enemy2;
+        private Character enemy3;
+        private Character enemy4;
+        private Character enemy5;
         private Shop shop;
-        private Item bowAndarrows;
-        private Item specialGem;
-        private Item shortSword;
-        private Item greatSword;
-        private Item bombs;
+        private Item battleShield;
+        private Item armour;
+        private Item babyDragon;
+        private Item cursedSword;
+        private Item woodenBow;
+        private Item broadSword;
+        private Item longSword;
+        private Item dagger;
+        private Item demonicGauntlets;
+        private Item dualBlades;
         private Item[] shopInventory;
+
 
         public void Run()
         {
@@ -34,41 +46,6 @@ namespace HelloWorld
             }
 
             End();
-        }
-
-        public void Save()
-        {
-            //Creates a new stream writer
-            StreamWriter writer = new StreamWriter("SaveData.txt");
-            //Calls save for player instance
-            player.Save(writer);
-            //Closes the writer
-            writer.Close();
-        }
-
-        public void Load()
-        {
-            //Creates a new stream reader
-            StreamReader reader = new StreamReader("SaveData.txt");
-            //Calls load for player instance
-            player.Load(reader);
-            //Closes the reader
-            reader.Close();
-        }
-
-        //Intializes the items
-        private void IntializeItems()
-        {
-            bowAndarrows.name = "Bow and 30 Arrows";
-            bowAndarrows.cost = 17;
-            specialGem.name = "Special Gem";
-            specialGem.cost = 25;
-            shortSword.name = "Short Sword";
-            shortSword.cost = 12;
-            greatSword.name = "Great Sword";
-            greatSword.cost = 45;
-            bombs.name = "5 Bombs";
-            bombs.cost = 9;
         }
 
         public void GetInput(out char input, string option1, string option2, string query)
@@ -84,149 +61,92 @@ namespace HelloWorld
                 input = Console.ReadKey().KeyChar;
                 if(input != '1' && input != '2')
                 {
-                    Console.WriteLine(" I don't understand what you want to do.");
+                    Console.WriteLine(" I don't understand your logic here.");
                 }
             }
         }
 
-        public void PrintInventory(Item[] inventory)
+        public void GetInput(out char input, string option1, string option2, string option3, string query)
         {
-            for(int i = 0; i < inventory.Length; i++)
+            Console.WriteLine(query);
+            Console.WriteLine("1. " + option1);
+            Console.WriteLine("2. " + option2);
+            Console.WriteLine("3. " + option3);
+            Console.Write("> ");
+
+            input = ' ';
+            while(input != '1' && input != '2' && input != '3')
             {
-                Console.WriteLine((i + 1) + ". " + inventory[i].name, +inventory[i].cost);
+                input = Console.ReadKey().KeyChar;
+                if(input != '1' && input != '2' && input != '3')
+                {
+                    Console.WriteLine("I don't understand your logic here.");
+                }
             }
         }
 
-        private void OpenShopMenu()
+        public void IntializeItems()
         {
-            //Prints welcome message and choices to the screen
-            Console.WriteLine("\nWelcome to the shop, traveler! What would you like?");
-            PrintInventory(shopInventory);
-            Console.WriteLine("\nGold: " + player.GetGold());
-
-            //Gets the player's input
-            char input = Console.ReadKey().KeyChar;
-
-            //Sets itemIndex to the index the player chooses
-            int itemIndex = -1;
-            switch(input)
-            {
-                case '1':
-                    {
-                        itemIndex = 0;
-                        break;
-                    }
-                case '2':
-                    {
-                        itemIndex = 1;
-                        break;
-                    }
-                case '3':
-                    {
-                        itemIndex = 2;
-                        break;
-                    }
-                case '4':
-                    {
-                        itemIndex = 3;
-                        break;
-                    }
-                case '5':
-                    {
-                        itemIndex = 4;
-                        break;
-                    }
-                default:
-                    {
-                        return;
-                    }
-            }
-
-            if(player.GetGold() < shopInventory[itemIndex].cost)
-            {
-                Console.WriteLine("\nSorry, you must have that broke boi syndrome.");
-                return;
-            }
-
-            //Asks the player to select a slot in their inventory
-            Console.WriteLine("\nChoose a slot to replace.");
-            PrintInventory(player.GetInventory());
-
-            //Gets the player's input
-            input = Console.ReadKey().KeyChar;
-
-            //Sets the value of the playerIndex by the player's choice
-            int playerIndex = -1;
-            switch(input)
-            {
-                case '1':
-                    {
-                        playerIndex = 0;
-                        break;
-                    }
-                case '2':
-                    {
-                        playerIndex = 1;
-                        break;
-                    }
-                case '3':
-                    {
-                        playerIndex = 2;
-                        break;
-                    }
-                default:
-                    {
-                        return;
-                    }
-            }
-
-            //Sell item to player and replace the weapon at the index with the newly purchased item
-            shop.Sell(player, itemIndex, playerIndex);
-
-            GetInput(out input, "Continue shopping", "Leave the shop", "\nWould you like to keep shopping?");
-
-            if(input == '1')
-            {
-                return;
-            }
-            else if(input == '2')
-            {
-                Save();
-                Console.WriteLine("\nThank you for shopping!!!");
-                gameOver = true;
-            }
+            battleShield.name = "Battle Shield";
+            battleShield.statBoost = 17;
+            battleShield.cost = 10;
+            armour.name = "Gilgamesh";
+            armour.statBoost = 32;
+            armour.cost = 19;
+            babyDragon.name = "Dragon Hatchling";
+            babyDragon.statBoost = 92;
+            babyDragon.cost = 60;
+            cursedSword.name = "Devil's Sword";
+            cursedSword.statBoost = 49;
+            cursedSword.cost = 36;
+            woodenBow.name = "Bow and 50 Arrows";
+            woodenBow.statBoost = 25;
+            woodenBow.cost = 20;
+            broadSword.name = "Broad Sword";
+            broadSword.statBoost = 28;
+            broadSword.cost = 16;
+            longSword.name = "Long Sword";
+            longSword.statBoost = 19;
+            longSword.cost = 14;
+            dagger.name = "Dagger";
+            dagger.statBoost = 14;
+            dagger.cost = 7;
+            demonicGauntlets.name = "Beowulf";
+            demonicGauntlets.statBoost = 78;
+            demonicGauntlets.cost = 39;
+            dualBlades.name = "Twin Swords";
+            dualBlades.statBoost = 43;
+            dualBlades.cost = 24;
         }
 
-        public void OpenMainMenu()
+        public void IntializeEnemies(Character enemy)
         {
-            char input;
-            GetInput(out input, "New Character", "Load a Character", "What would you like to do?");
-            if (input == '1')
-            {
-                Update();
-            }
-            else if (input == '2')
-            {
-                Load();
-            }
+            enemy1 = new Character ("Bandit", 50, 10, 12);
+            enemy2 = new Character ("Wolf", 10, 5, 5);
+            enemy3 = new Character("Orc", 112, 24, 25);
+        }
+
+        public void CreateCharacter(Character player)
+        {
+            Console.WriteLine("Please state your name, traveler.");
+            
+        }
+
+        public void ShopMenu()
+        {
+
         }
 
         //Performed once when the game begins
         public void Start()
         {
-            Console.WriteLine("What is your name?");
-            string name = Console.ReadLine();
-            player = new Player(name, 200);
-            IntializeItems();
-            shopInventory = new Item[] { bowAndarrows, specialGem, shortSword, greatSword, bombs };
-            shop = new Shop(shopInventory);
-            OpenMainMenu(); 
+ 
         }
 
         //Repeated until the game ends
         public void Update()
         {
-            OpenShopMenu();
+
         }
 
         //Performed once when the game ends

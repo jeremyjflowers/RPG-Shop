@@ -1,48 +1,25 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Text;
-using System.IO;
 
 namespace HelloWorld
 {
-    class Player
+    class Player : Character
     {
-        private string name;
-        private int gold;
+        private float gold;
         private Item[] inventory;
 
-        public Player()
+        public Player() : base()
         {
-            name = " ";
-            gold = 200;
-            //Creates an inventory array for the player with three items
+            gold = 100;
             inventory = new Item[3];
         }
 
-        public Player(string nameVal, int goldVal)
+        public Player(string nameVal, float healthVal, int damageVal, float levelVal, float goldVal, int inventorySize) 
+            : base(nameVal, healthVal, damageVal, levelVal)
         {
-            name = nameVal;
             gold = goldVal;
-            inventory = new Item[3];
-        }
-
-        //Allows the player to buy items from shop
-        public bool Buy(Item item, int inventoryIndex)
-        {
-           if(GetGold() >= item.cost)
-           {
-                gold -= item.cost;
-                inventory[inventoryIndex] = item;
-                return true;
-           }
-
-            return false;
-        }
-
-        public int GetGold()
-        {
-            return gold;
+            inventory = new Item[inventorySize];
         }
 
         public Item[] GetInventory()
@@ -50,26 +27,25 @@ namespace HelloWorld
             return inventory;
         }
 
-        public virtual void Save(StreamWriter writer)
+        public void AddToInventory(Item item, int playerIndex)
         {
-            //Saves the player's name and gold
-            writer.WriteLine(name);
-            writer.WriteLine(gold);
+            inventory[playerIndex] = item;
         }
 
-        public virtual bool Load(StreamReader reader)
+        public bool Buy(Item item, int playerIndex)
         {
-            string name = reader.ReadLine();
-            float gold = 0;
-            //Checks if loading was successful
-            if(float.TryParse(reader.ReadLine(), out gold) == false)
+            if(gold >= item.cost)
             {
-                return false;
+                gold -= item.cost;
+                AddToInventory(item, playerIndex);
+                return true;
             }
-            //Set to update the member variables and return true
-            this.name = name;
-            this.gold = (int)gold;
-            return true;
+            return false;
+        }
+
+        public float GetGold()
+        {
+            return gold;
         }
     }
 }

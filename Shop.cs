@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.IO;
 
 namespace HelloWorld
 {
@@ -12,30 +11,31 @@ namespace HelloWorld
 
         public Shop()
         {
-            gold = 45;
-            inventory = new Item[5];
+            gold = 0;
+            inventory = new Item[3];
         }
 
-        public Shop(Item[] items)
+        public Shop(Item item,int inventorySize)
         {
-            gold = 45;
-            //Creates an inventory array for the shop's items
-            inventory = items;
+            gold = 0;
+            inventory = new Item[inventorySize];
+            inventory[inventorySize] = item;
         }
 
         public bool Sell(Player player, int itemIndex, int playerIndex)
         {
-            //Finds the item to buy in the inventory array
             Item itemToBuy = inventory[itemIndex];
-            //Checks if the item was purchased successfully
             if(player.Buy(itemToBuy, playerIndex))
             {
-                //Increases the shop's gold by the cost of the item
                 gold += itemToBuy.cost;
                 return true;
             }
-
             return false;
+        }
+
+        public Item[] GetInventory()
+        {
+            return inventory;
         }
     }
 }
