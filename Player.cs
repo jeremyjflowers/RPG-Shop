@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Transactions;
 
 namespace HelloWorld
 {
@@ -8,6 +9,7 @@ namespace HelloWorld
     {
         private float gold;
         private Item[] inventory;
+        private Item currentWeapon;
 
         public Player() : base()
         {
@@ -32,6 +34,29 @@ namespace HelloWorld
             inventory[playerIndex] = item;
         }
 
+        public bool Contains(int playerIndex)
+        {
+            if(playerIndex > 0 && playerIndex < inventory.Length)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public void EquipWeapon(int playerIndex)
+        {
+            if(Contains(playerIndex))
+            {
+                currentWeapon = inventory[playerIndex];
+            }
+        }
+
+        public override float Attack(Character enemy)
+        {
+            int totalDamage = baseDamage + currentWeapon.statBoost;
+            return enemy.TakeDamage(totalDamage);
+        }
+
         public bool Buy(Item item, int playerIndex)
         {
             if(gold >= item.cost)
@@ -46,6 +71,15 @@ namespace HelloWorld
         public float GetGold()
         {
             return gold;
+        }
+
+        public void PrintStats(float healthVal, int damageVal, float levelVal, int gold, int EXP)
+        {
+            Console.WriteLine("Health: " + healthVal);
+            Console.WriteLine("Damage: " + damageVal);
+            Console.WriteLine("Level: " + levelVal);
+            Console.WriteLine("Gold: " + gold);
+            Console.WriteLine("EXP: " + EXP);
         }
     }
 }

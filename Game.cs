@@ -16,7 +16,7 @@ namespace HelloWorld
     class Game
     {
         private bool gameOver = false;
-        private Character player;
+        private Player player;
         private Character enemy1;
         private Character enemy2;
         private Character enemy3;
@@ -123,12 +123,15 @@ namespace HelloWorld
         {
             enemy1 = new Character ("Bandit", 50, 10, 12);
             enemy2 = new Character ("Wolf", 10, 5, 5);
-            enemy3 = new Character("Orc", 112, 24, 25);
+            enemy3 = new Character ("Orc", 112, 24, 25);
+            enemy4 = new Character ("Boss Bandit", 150, 24, 20);
+            enemy5 = new Character("Giant", 220, 30, 39);
         }
 
-        public void CreateCharacter(Character player)
+        public void CreateCharacter(Player player)
         {
             Console.WriteLine("Please state your name, traveler.");
+            string 
             
         }
 

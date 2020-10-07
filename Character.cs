@@ -9,15 +9,15 @@ namespace HelloWorld
     {
         private string name;
         private float health;
-        protected int damage;
+        protected int baseDamage;
         private float level;
-        private int EXP;
+        protected int EXP;
 
         public Character()
         {
             name = " ";
             health = 100;
-            damage = 9;
+            baseDamage = 9;
             level = 1;
         }
 
@@ -25,13 +25,13 @@ namespace HelloWorld
         {
             name = nameVal;
             health = healthVal;
-            damage = damageVal;
+            baseDamage = damageVal;
             level = levelVal;
         }
 
         public virtual float Attack(Character enemy)
         {
-            float damageTaken = enemy.TakeDamage(damage);
+            float damageTaken = enemy.TakeDamage(baseDamage);
             return damageTaken;
         }
 
@@ -52,12 +52,13 @@ namespace HelloWorld
                 EXP += 1;
                 if (EXP <= 100)
                 {
-                    UpgradeStats(health, damage);
+                    level += 1;
+                    UpgradeStats(health, baseDamage);
                 }
             }
         }
 
-        public void UpgradeStats(float health, int damage)
+        public void UpgradeStats(float health, int baseDamage)
         {
             Console.WriteLine("LEVEL UP!!!! You are now level " + level + "! Please choose a stat to upgrade.");
             Console.WriteLine("1. Increase Health");
@@ -71,7 +72,7 @@ namespace HelloWorld
             }
             else if(input == '2')
             {
-                damage += 9;
+                baseDamage += 9;
                 Console.WriteLine("Your damage has been increased by 9 points.");
             }
 
