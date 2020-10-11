@@ -87,5 +87,40 @@ namespace HelloWorld
         {
             return health > 0;
         }
+
+        public virtual void Save(StreamWriter writer)
+        {
+            writer.WriteLine(name);
+            writer.WriteLine(health);
+            writer.WriteLine(baseDamage);
+            writer.WriteLine(level);
+        }
+
+        public virtual bool Load(StreamReader reader)
+        {
+            string name = reader.ReadLine();
+            float health = 0;
+            int baseDamage = 0;
+            float level = 0;
+
+            if (float.TryParse(reader.ReadLine(), out health) == false)
+            {
+                return false;
+            }
+            if(int.TryParse(reader.ReadLine(), out baseDamage) == false)
+            {
+                return false;
+            }
+            if(float.TryParse(reader.ReadLine(), out level) == false)
+            {
+                return false;
+            }
+
+            this.name = name;
+            this.health = health;
+            this.baseDamage = baseDamage;
+            this.level = level;
+            return true;
+        }
     }
 }

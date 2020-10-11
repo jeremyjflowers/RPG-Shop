@@ -12,14 +12,13 @@ namespace HelloWorld
         public Shop()
         {
             gold = 0;
-            inventory = new Item[3];
+            inventory = new Item[10];
         }
 
-        public Shop(Item item,int inventorySize)
+        public Shop(Item[] item)
         {
             gold = 0;
-            inventory = new Item[inventorySize];
-            inventory[inventorySize] = item;
+            inventory = item;
         }
 
         public bool Sell(Player player, int itemIndex, int playerIndex)

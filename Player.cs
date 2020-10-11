@@ -73,7 +73,7 @@ namespace HelloWorld
             return gold;
         }
 
-        public void PrintStats(float healthVal, int damageVal, float levelVal, int gold, int EXP)
+        public void PrintStats(float healthVal, int damageVal, float levelVal, float gold, int EXP)
         {
             Console.WriteLine("Health: " + healthVal);
             Console.WriteLine("Damage: " + damageVal);

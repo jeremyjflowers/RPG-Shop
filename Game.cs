@@ -17,11 +17,7 @@ namespace HelloWorld
     {
         private bool gameOver = false;
         private Player player;
-        private Character enemy1;
-        private Character enemy2;
-        private Character enemy3;
-        private Character enemy4;
-        private Character enemy5;
+        private Character enemy;
         private Shop shop;
         private Item battleShield;
         private Item armour;
@@ -29,7 +25,6 @@ namespace HelloWorld
         private Item cursedSword;
         private Item woodenBow;
         private Item broadSword;
-        private Item longSword;
         private Item dagger;
         private Item demonicGauntlets;
         private Item dualBlades;
@@ -85,6 +80,28 @@ namespace HelloWorld
             }
         }
 
+        public void ShowInventory(Item[] inventory)
+        {
+            for(int i = 0; i < inventory.Length; i++)
+            {
+                Console.WriteLine((i + 1) + ". " + inventory[i].name + inventory[i].cost + " Gold"); 
+            }
+        }
+
+        public void Save()
+        {
+            StreamWriter writer = new StreamWriter("SaveData.txt");
+            player.Save(writer);
+            writer.Close();
+        }
+
+        public void Load()
+        {
+            StreamReader reader = new StreamReader("SaveData.txt");
+            player.Load(reader);
+            reader.Close();
+        }
+
         public void IntializeItems()
         {
             battleShield.name = "Battle Shield";
@@ -105,9 +122,6 @@ namespace HelloWorld
             broadSword.name = "Broad Sword";
             broadSword.statBoost = 28;
             broadSword.cost = 16;
-            longSword.name = "Long Sword";
-            longSword.statBoost = 19;
-            longSword.cost = 14;
             dagger.name = "Dagger";
             dagger.statBoost = 14;
             dagger.cost = 7;
@@ -121,29 +135,115 @@ namespace HelloWorld
 
         public void IntializeEnemies(Character enemy)
         {
-            enemy1 = new Character ("Bandit", 50, 10, 12);
-            enemy2 = new Character ("Wolf", 10, 5, 5);
-            enemy3 = new Character ("Orc", 112, 24, 25);
-            enemy4 = new Character ("Boss Bandit", 150, 24, 20);
-            enemy5 = new Character("Giant", 220, 30, 39);
+            enemy = new Character ("Bandit", 50, 10, 12);
+            enemy = new Character ("Wolf", 10, 5, 5);
+            enemy = new Character ("Orc", 112, 24, 25);
+            enemy = new Character ("Boss Bandit", 150, 24, 20);
+            enemy = new Character("Giant", 220, 30, 39);
         }
 
         public void CreateCharacter(Player player)
         {
             Console.WriteLine("Please state your name, traveler.");
-            string 
-            
+            string name = Console.ReadLine();
+            new Player(name, 100, 9, 1, 20, 5);
         }
 
-        public void ShopMenu()
+        public void OpenMainMenu()
         {
+            char input;
+            GetInput(out input, "Create Character", "Load Character", "Please select an option");
+            if(input == '1')
+            {
+                CreateCharacter(player);
+                Save();
+            }
+            else if(input == '2')
+            {
+                player = new Player();
+                Load();
+                return;
+            }
+        }
 
+        public void ShopMenu(Shop shop)
+        {
+            shopInventory = new Item[] { battleShield, armour, babyDragon, cursedSword, woodenBow, broadSword, dagger, demonicGauntlets, dualBlades };
+            shop = new Shop(shopInventory);
+            Console.WriteLine("Welcome to the shop, traveler!! What would you like?");
+            ShowInventory(shopInventory);
+            Console.WriteLine("Gold: " + player.GetGold());
+
+            char input = Console.ReadKey().KeyChar;
+
+            int itemIndex = -1;
+            switch(input)
+            {
+                case '1':
+                    {
+                        itemIndex = 0;
+                        break;
+                    }
+                case '2':
+                    {
+                        itemIndex = 1;
+                        break;
+                    }
+                case '3':
+                    {
+                        itemIndex = 2;
+                        break;
+                    }
+                case '4':
+                    {
+                        itemIndex = 3;
+                        break;
+                    }
+                case '5':
+                    {
+                        itemIndex = 4;
+                        break;
+                    }
+                case '6':
+                    {
+                        itemIndex = 5;
+                        break;
+                    }
+                case '7':
+                    {
+                        itemIndex = 6;
+                        break;
+                    }
+                case '8':
+                    {
+                        itemIndex = 7;
+                        break;
+                    }
+                case '9':
+                    {
+                        itemIndex = 8;
+                        break;
+                    }
+                default:
+                    {
+                        return;
+                    }  
+            }
+            if(player.GetGold() < shopInventory[itemIndex].cost)
+            {
+                Console.WriteLine("You simply cannot afford this item traveler.");
+                return;
+            }
+
+            Console.WriteLine("Which slot would you like to place the item in?");
         }
 
         //Performed once when the game begins
         public void Start()
         {
- 
+            IntializeItems();
+            IntializeEnemies(enemy);
+            OpenMainMenu();
         }
 
         //Repeated until the game ends
