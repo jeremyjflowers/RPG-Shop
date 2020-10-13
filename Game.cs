@@ -33,6 +33,7 @@ namespace HelloWorld
         private Item demonicGauntlets;
         private Item dualBlades;
         private Item[] shopInventory;
+        private Item[] player1Inventory;
 
 
         public void Run()
@@ -154,13 +155,12 @@ namespace HelloWorld
             enemy5 = new Character("Giant", 220, 30, 39);
         }
 
-        public Player CreateCharacter()
+        public void CreateCharacter()
         {
             Console.WriteLine("\nPlease state your name, traveler.");
             string name = Console.ReadLine();
             Player player1 = new Player(name, 100, 9, 1, 20, 5);
             player1.PrintStats();
-            return player1;
         }
 
         public void SwapEquipment(Player player1)
@@ -331,68 +331,58 @@ namespace HelloWorld
         {
             shopInventory = new Item[] {dagger, battleShield, broadSword, armour, woodenBow, dualBlades, cursedSword, demonicGauntlets, babyDragon};
             shop = new Shop(shopInventory);
-            Console.WriteLine("Welcome to the shop, traveler!! What would you like?");
+            Console.WriteLine("\nWelcome to the shop, traveler!! What would you like?");
             ShowInventory(shopInventory);
             Console.WriteLine("Gold: " + player1.GetGold());
 
             char input = Console.ReadKey().KeyChar;
 
             int itemIndex = -1;
-            int playerIndex = -1;
             switch(input)
             {
                 case '1':
                     {
                         itemIndex = 0;
-                        player1.AddToInventory(dagger, playerIndex);
                         break;
                     }
                 case '2':
                     {
                         itemIndex = 1;
-                        player1.AddToInventory(battleShield, playerIndex);
                         break;
                     }
                 case '3':
                     {
                         itemIndex = 2;
-                        player1.AddToInventory(broadSword, playerIndex);
                         break;
                     }
                 case '4':
                     {
                         itemIndex = 3;
-                        player1.AddToInventory(armour, playerIndex);
                         break;
                     }
                 case '5':
                     {
                         itemIndex = 4;
-                        player1.AddToInventory(woodenBow, playerIndex);
                         break;
                     }
                 case '6':
                     {
                         itemIndex = 5;
-                        player1.AddToInventory(dualBlades, playerIndex);
                         break;
                     }
                 case '7':
                     {
                         itemIndex = 6;
-                        player1.AddToInventory(cursedSword, playerIndex);
                         break;
                     }
                 case '8':
                     {
                         itemIndex = 7;
-                        player1.AddToInventory(demonicGauntlets, playerIndex);
                         break;
                     }
                 case '9':
                     {
                         itemIndex = 8;
-                        player1.AddToInventory(babyDragon, playerIndex);
                         break;
                     }
                 default:
@@ -400,10 +390,69 @@ namespace HelloWorld
                         return;
                     }  
             }
+
             if(player1.GetGold() < shopInventory[itemIndex].cost)
             {
-                Console.WriteLine("You simply cannot afford this item traveler.");
+                Console.WriteLine("\nYou simply cannot afford this item traveler.");
                 return;
+            }
+
+            Console.WriteLine("\nPlease choose a slot to place your item");
+            ShowInventory(player1Inventory);
+
+            input = Console.ReadKey().KeyChar;
+            int playerIndex = -1;
+            switch(input)
+            {
+                case '1':
+                    {
+                        playerIndex = 0;
+                        break;
+                    }
+                case '2':
+                    {
+                        playerIndex = 1;
+                        break;
+                    }
+                case '3':
+                    {
+                        playerIndex = 2;
+                        break;
+                    }
+                case '4':
+                    {
+                        playerIndex = 3;
+                        break;
+                    }
+                case '5':
+                    {
+                        playerIndex = 4;
+                        break;
+                    }
+                case '6':
+                    {
+                        playerIndex = 5;
+                        break;
+                    }
+                case '7':
+                    {
+                        playerIndex = 6;
+                        break;
+                    }
+                case '8':
+                    {
+                        playerIndex = 7;
+                        break;
+                    }
+                case '9':
+                    {
+                        playerIndex = 8;
+                        break;
+                    }
+                default:
+                    {
+                        return;
+                    }
             }
             shop.Sell(player1, itemIndex, playerIndex);
 
@@ -426,7 +475,6 @@ namespace HelloWorld
             IntializeEnemies(enemy4);
             IntializeEnemies(enemy5);
             OpenMainMenu();
-            CreateCharacter();
         }
 
         //Repeated until the game ends
