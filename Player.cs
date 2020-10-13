@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Transactions;
 
@@ -43,7 +44,7 @@ namespace HelloWorld
             return false;
         }
 
-        public void EquipWeapon(int playerIndex)
+        public void EquipEquipment(int playerIndex)
         {
             if(Contains(playerIndex))
             {
@@ -73,11 +74,18 @@ namespace HelloWorld
             return gold;
         }
 
-        public void PrintStats(float healthVal, int damageVal, float levelVal, float gold, int EXP)
+        public float gainedGold()
         {
-            Console.WriteLine("Health: " + healthVal);
-            Console.WriteLine("Damage: " + damageVal);
-            Console.WriteLine("Level: " + levelVal);
+            float gainedGold = gold + 12;
+            return gainedGold;
+        }
+
+        public override void PrintStats()
+        {
+            Console.WriteLine("Name: " + name);
+            Console.WriteLine("Health: " + health);
+            Console.WriteLine("Damage: " + baseDamage);
+            Console.WriteLine("Level: " + level);
             Console.WriteLine("Gold: " + gold);
             Console.WriteLine("EXP: " + EXP);
         }

@@ -27,6 +27,10 @@ structures and file handling.
 - Key 3 - Enables the choice of option 3
 - Key 4 - Enables the choice of option 4
 - Key 5 - Enables the choice of option 5
+- Key 6 - Enables the choice of option 6
+- Key 7 - Enables the choice of option 7
+- Key 8 - Enables the choice of option 8
+- Key 9 - Enables the choice of option 9
 
 3. Output Information
 - The player selects an item from the shop based off the given input
@@ -35,10 +39,83 @@ structures and file handling.
 
 ## Object Information
 
+   **File** : Character.cs
+
+
+ **Attributes**
+
+         Name: name
+             Description: Defines the name parameter of the character class
+             Type:string
+
+         Name: health
+             Description: Defines the health parameter of the character class
+             Type:float
+
+         Name: baseDamage
+             Description: Defines the damage parameter of the character class
+             Type:int
+
+         Name: level
+             Description: Defines the level parameter of the charcater class
+             Type:float
+
+         Name: EXP
+             Description: Defines the exp parameter of the character class
+             Type:int
+
+         Name: Character()
+             Description: Defines the default comstruct of Character 
+             Type:construct
+
+         Name: Character(string nameVal, float healthVal, int damageVal; float levelVal)
+             Description: Defines the overloaded construct of Character
+             Type:construct
+
+         Name: Attack(Character enemy)
+             Description: Enables the attack for the Character class
+             Type:virtual float
+
+         Name: TakeDamage(int damageVal)
+             Description: Enables the Character class to take damage from enemies
+             Type:virtual float
+
+         Name: LevelUp(float level, int EXP)
+             Description: Allows the player to increase their levels
+             Type:void
+
+         Name: UpgradeStats(float health, int baseDamage)
+             Description: Allows the player to increase their stats after they level up
+             Type:void
+
+         Name: GainEXP
+             Description: Allows the player to gain EXP after every battle 
+             Type:float
+
+         Name: GetIsAlive()
+             Description: Checks to see if the player's health is more than zero
+             Type:bool
+
+         Name: GetNmae()
+             Description: Grabs the player's name when called
+             Type:string
+
+         Name: Save(StreamWriter writer)
+             Description: Saves the player's current stats
+             Type:virtual void
+
+         Name: Load(StreamReader reader)
+             Description: Loads the player's recently saved stats
+             Type:virtual bool
+
    **File** : Game.cs
 
 
  **Attributes**
+
+         Name: 
+             Description: 
+             Type:
 
          Name: Item
              Description: Defines the items
@@ -48,6 +125,10 @@ structures and file handling.
              Description: The name of the items
              Type:string
 
+         Name: statBoost
+             Description: The damage multiplier of the item 
+             Type:
+
          Name: cost
              Description: The price of the items
              Type:int
@@ -56,32 +137,68 @@ structures and file handling.
              Description: Tells if the game has ended
              Type:bool
 
-         Name: player
+         Name: player1
              Description: Defines the player instance
              Type:Player.cs
+
+         Name: enemy1
+             Description: Defines the first enemy instance 
+             Type:Character.cs
+
+         Name: enemy2
+             Description: Defines the second enemy instance 
+             Type:Character.cs
+
+         Name: enemy3
+             Description: Defines the third enemy instance 
+             Type:Character.cs
+
+         Name: enemy4
+             Description: Defines the fourth enemy instance
+             Type:Character.cs
+
+         Name: enemy5
+             Description: Defines the fifth enemy instance
+             Type:Character.cs
 
          Name: shop
              Description: Defines the shop instance
              Type:Shop.cs
 
-         Name: bowAndarrows
-             Description: Defines the bow and arrows using Item struct
+         Name: battleShield
+             Description: Defines the shield item using Item struct
              Type:GameObject
 
-         Name: specialGem
-             Description: Defines the special gem item using Item struct
+         Name: armour
+             Description: Defines the armour item using Item struct
              Type:GameObject
 
-         Name: shortSword
-             Description: Defines the short sword item using Item struct
+         Name: babyDragon
+             Description: Defines the babyDragon item using Item struct
              Type:GameObject
 
-         Name: greatSword
-             Description: Defines the great sword item using Item struct
+         Name: cursedSword
+             Description: Defines the cursed sword item using Item struct
              Type:GameObject
 
-         Name: bombs
-             Description: Defines the bomb item using Item struct
+         Name: woodenBow
+             Description: Defines the bow and arrow item using Item struct
+             Type:GameObject
+
+         Name: broadSword
+             Description: Defines the broad sword item using the Item struct 
+             Type:GameObject
+
+         Name: dagger
+             Description: Defines the dagger item using the Item struct 
+             Type:GameObject
+
+         Name: demonicGauntlets
+             Description: Defines the demonic gauntlets item using the Item struct
+             Type:GameObject
+
+         Name: dualBlades
+             Description: Defines the twin blades item using the Item struct
              Type:GameObject
 
          Name: shopInventory
@@ -90,6 +207,22 @@ structures and file handling.
 
          Name: Run()
              Description: Runs the game
+             Type:void
+
+         Name: GetInput(out char input, string option1, string option2, string query)
+             Description: Displays query with 2 options and grabs player's input
+             Type:void
+
+         Name: GetInput(out char input, string option1, string option2, string option3, string query)
+             Description: Displays query with 3 options and grabs player's input
+             Type:void
+
+         Name: ClearScreen()
+             Description: Clears the screen by giving the player a command prompt
+             Type:void
+
+         Name: ShowInventory(Item[] inventory)
+             Description: Displays the inventory array of a given parameter
              Type:void
 
          Name: Save()
@@ -101,23 +234,35 @@ structures and file handling.
              Type:void
 
          Name: IntializeItems()
-             Description: Intializes the items
+             Description: Intializes the items for the game
              Type:void
 
-         Name: GetInput()
-             Description: Grabs the player's input
+         Name: IntializeEnemies(Character enemy)
+             Description: Enables the enemies of the game
              Type:void
 
-         Name: PrintInventory()
-             Description: Displays the inventory of a given array
+         Name: CreateCharacter()
+             Description: Enables the creation of the player's character
              Type:void
 
-         Name: OpenShopMenu()
-             Description: Displays the menu of the shop
+         Name: SwapEquipment(Player player)
+             Description: Allows the player to swap equipment in the player's inventory
              Type:void
 
          Name: OpenMainMenu()
              Description: Displays the main menu of the game
+             Type:void
+
+         Name: Explore
+             Description: Allows the player to choose what they want to do 
+             Type:void
+
+         Name: BattleStart(Player player, Character enemy)
+             Description: Starts a battle between the player and the enemies
+             Type:void
+
+         Name: ShopMenu(Shop shop)
+             Description: Displays the shop menu for the player
              Type:void
 
          Name: Start()
@@ -136,10 +281,6 @@ structures and file handling.
 
 **Attributes**
 
-         Name: name
-             Description: Defines the name for the player class
-             Type:string
-
          Name: gold
              Description: Defines the amount of gold for the player class
              Type:int
@@ -149,12 +290,28 @@ structures and file handling.
              Type:array
 
          Name: Player()
-             Description: Defines the default player parameters
+             Description: Defines the default player parameters with inheirtance of the Character class
              Type:construct
 
-         Name: Player(string nameVal, int goldVal)
-             Description: Defines the overloaded player parameters
+         Name: Player(float goldVal)
+             Description: Defines the overloaded player parameters with the inheirtance of the Character class
              Type:consrtuct
+
+         Name: AddToInventory(Item item, playerIndex)
+             Description: Adds items bought from the shop into the player's inventory
+             Type:void
+
+         Name: Contains(int playerIndex)
+             Description: Checks to see if an item is within the player's inventory
+             Type:void
+
+         Name: EquipEquipment(int playerIndex)
+             Description: Swaps the player's current equipped item out with a new item
+             Type:void
+
+         Name: Attack
+             Description: Allows the player to attack with the damage multiplier of the items
+             Type:override void
 
          Name: Buy(Item item, int inventoryIndex)
              Description: Allows player to buy items from shop and add them to their inventory
@@ -162,7 +319,11 @@ structures and file handling.
 
          Name: GetGold()
              Description: Return the amount of gold the player has
-             Type:int
+             Type:float
+
+         Name: gainedGold()
+             Description: Gives the player a set amount of gold after finishing a battle
+             Type:float
 
          Name: Save(StreamWriter writer)
              Description: Saves the player's name and gold

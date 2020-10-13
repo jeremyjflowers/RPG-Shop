@@ -7,10 +7,10 @@ namespace HelloWorld
 {
     class Character
     {
-        private string name;
-        private float health;
+        protected string name;
+        protected float health;
         protected int baseDamage;
-        private float level;
+        protected float level;
         protected int EXP;
 
         public Character()
@@ -78,14 +78,29 @@ namespace HelloWorld
 
         }
 
-        public float GetEXP()
+        public virtual void PrintStats()
         {
-            return EXP;
+            Console.WriteLine("Name: " + name);
+            Console.WriteLine("Health: " + health);
+            Console.WriteLine("Damage: " + baseDamage);
+            Console.WriteLine("Level: " + level);
+            Console.WriteLine("EXP: " + EXP);
+        }
+
+        public float GainEXP()
+        {
+           int gainedEXP = EXP + 9;
+           return EXP;
         }
 
         public bool GetIsAlive()
         {
             return health > 0;
+        }
+
+        public string GetName()
+        {
+            return name;
         }
 
         public virtual void Save(StreamWriter writer)
