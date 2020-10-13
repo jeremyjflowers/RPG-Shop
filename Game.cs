@@ -16,7 +16,7 @@ namespace HelloWorld
     class Game
     {
         private bool gameOver = false;
-        private Player player1;
+        private Player player;
         private Character enemy1;
         private Character enemy2;
         private Character enemy3;
@@ -33,7 +33,6 @@ namespace HelloWorld
         private Item demonicGauntlets;
         private Item dualBlades;
         private Item[] shopInventory;
-        private Item[] player1Inventory;
 
 
         public void Run()
@@ -97,21 +96,21 @@ namespace HelloWorld
         {
             for(int i = 0; i < inventory.Length; i++)
             {
-                Console.WriteLine((i + 1) + ". " + inventory[i].name + inventory[i].cost + " Gold"); 
+                Console.WriteLine((i + 1) + ". " + inventory[i].name + " " + inventory[i].cost + " Gold"); 
             }
         }
 
         public void Save()
         {
             StreamWriter writer = new StreamWriter("SaveData.txt");
-            player1.Save(writer);
+            player.Save(writer);
             writer.Close();
         }
 
         public void Load()
         {
             StreamReader reader = new StreamReader("SaveData.txt");
-            player1.Load(reader);
+            player.Load(reader);
             reader.Close();
         }
 
@@ -159,13 +158,13 @@ namespace HelloWorld
         {
             Console.WriteLine("\nPlease state your name, traveler.");
             string name = Console.ReadLine();
-            Player player1 = new Player(name, 100, 9, 1, 20, 5);
-            player1.PrintStats();
+            Player player = new Player();
+            player.PrintStats();
         }
 
-        public void SwapEquipment(Player player1)
+        public void SwapEquipment(Player player)
         {
-            Item[] inventory = player1.GetInventory();
+            Item[] inventory = player.GetInventory();
             char input = ' ';
             for(int i = 0; i < inventory.Length; i++)
             {
@@ -177,63 +176,63 @@ namespace HelloWorld
             {
                 case '1':
                     {
-                        player1.EquipEquipment(0);
+                        player.EquipEquipment(0);
                         Console.WriteLine("You have equipped " + inventory[0].name);
                         Console.WriteLine("Damage has been increased by " + inventory[0].statBoost);
                         break;
                     }
                 case '2':
                     {
-                        player1.EquipEquipment(1);
+                        player.EquipEquipment(1);
                         Console.WriteLine("You have equipped " + inventory[1].name);
                         Console.WriteLine("Damage has been increased by " + inventory[1].statBoost);
                         break;
                     }
                 case '3':
                     {
-                        player1.EquipEquipment(2);
+                        player.EquipEquipment(2);
                         Console.WriteLine("You have equipped " + inventory[2].name);
                         Console.WriteLine("Damage has been increased by " + inventory[2].statBoost);
                         break;
                     }
                 case '4':
                     {
-                        player1.EquipEquipment(3);
+                        player.EquipEquipment(3);
                         Console.WriteLine("You have equipped " + inventory[3].name);
                         Console.WriteLine("Damage has been increased by " + inventory[3].statBoost);
                         break;
                     }
                 case '5':
                     {
-                        player1.EquipEquipment(4);
+                        player.EquipEquipment(4);
                         Console.WriteLine("You have equipped " + inventory[4].name);
                         Console.WriteLine("Damage has been increased by " + inventory[4].statBoost);
                         break;
                     }
                 case '6':
                     {
-                        player1.EquipEquipment(5);
+                        player.EquipEquipment(5);
                         Console.WriteLine("You have equipped " + inventory[5].name);
                         Console.WriteLine("Damage has been increased by " + inventory[5].statBoost);
                         break;
                     }
                 case '7':
                     {
-                        player1.EquipEquipment(6);
+                        player.EquipEquipment(6);
                         Console.WriteLine("You have equipped " + inventory[6].name);
                         Console.WriteLine("Damage has been increased by " + inventory[6].statBoost);
                         break;
                     }
                 case '8':
                     {
-                        player1.EquipEquipment(7);
+                        player.EquipEquipment(7);
                         Console.WriteLine("You have equipped " + inventory[7].name);
                         Console.WriteLine("Damage has been increased by " + inventory[7].statBoost);
                         break;
                     }
                 case '9':
                     {
-                        player1.EquipEquipment(8);
+                        player.EquipEquipment(8);
                         Console.WriteLine("You have equipped " + inventory[8].name);
                         Console.WriteLine("Damage has been increased by " + inventory[8].statBoost);
                         break;
@@ -253,11 +252,12 @@ namespace HelloWorld
             if(input == '1')
             {
                 CreateCharacter();
+                Save();
                 Explore();
             }
             else if(input == '2')
             {
-                player1 = new Player();
+                player = new Player();
                 Load();
                 Explore();
                 return;
@@ -274,20 +274,20 @@ namespace HelloWorld
                 {
                     ShopMenu(shop);
                 }
-                BattleStart(enemy2);
-                BattleStart(enemy1);
-                BattleStart(enemy4);
-                BattleStart(enemy3);
-                BattleStart(enemy5);
+                BattleStart(player, enemy2);
+                BattleStart(player, enemy1);
+                BattleStart(player, enemy4);
+                BattleStart(player, enemy3);
+                BattleStart(player, enemy5);
             }
         }
 
-        public void BattleStart(Character enemy)
+        public void BattleStart(Player player, Character enemy)
         {
-            while(player1.GetIsAlive() && enemy.GetIsAlive())
+            while(player.GetIsAlive() && enemy.GetIsAlive())
             {
-                Console.WriteLine(player1);
-                player1.PrintStats();
+                Console.WriteLine(player);
+                player.PrintStats();
                 Console.WriteLine(enemy);
                 enemy.PrintStats();
 
@@ -296,17 +296,17 @@ namespace HelloWorld
 
                 if(input == '1')
                 {
-                    float damageTaken = player1.Attack(enemy);
-                    Console.WriteLine(player1.GetName() + " dealt " + damageTaken + " damage to " + enemy.GetName());
+                    float damageTaken = player.Attack(enemy);
+                    Console.WriteLine(player.GetName() + " dealt " + damageTaken + " damage to " + enemy.GetName());
 
-                    damageTaken = enemy.Attack(player1);
-                    Console.WriteLine(enemy.GetName() + " dealt " + damageTaken + " damage to " + player1.GetName());
+                    damageTaken = enemy.Attack(player);
+                    Console.WriteLine(enemy.GetName() + " dealt " + damageTaken + " damage to " + player.GetName());
                 }
                 else if(input == '2')
                 {
-                    SwapEquipment(player1);
-                    float damageTaken = enemy.Attack(player1);
-                    Console.WriteLine(enemy.GetName() + " dealt " + damageTaken + " damage to " + player1.GetName());
+                    SwapEquipment(player);
+                    float damageTaken = enemy.Attack(player);
+                    Console.WriteLine(enemy.GetName() + " dealt " + damageTaken + " damage to " + player.GetName());
                 }
                 else
                 {
@@ -314,10 +314,10 @@ namespace HelloWorld
                 }
                 Console.Clear();
 
-                if(player1.GetIsAlive())
+                if(player.GetIsAlive())
                 {
-                    player1.gainedGold();
-                    player1.GainEXP();
+                    player.gainedGold();
+                    player.GainEXP();
                     continue;
                 }
                 else
@@ -333,7 +333,7 @@ namespace HelloWorld
             shop = new Shop(shopInventory);
             Console.WriteLine("\nWelcome to the shop, traveler!! What would you like?");
             ShowInventory(shopInventory);
-            Console.WriteLine("Gold: " + player1.GetGold());
+            Console.WriteLine("Gold: " + player.GetGold());
 
             char input = Console.ReadKey().KeyChar;
 
@@ -391,14 +391,14 @@ namespace HelloWorld
                     }  
             }
 
-            if(player1.GetGold() < shopInventory[itemIndex].cost)
+            if(player.GetGold() < shopInventory[itemIndex].cost)
             {
                 Console.WriteLine("\nYou simply cannot afford this item traveler.");
                 return;
             }
 
             Console.WriteLine("\nPlease choose a slot to place your item");
-            ShowInventory(player1Inventory);
+            ShowInventory(player.GetInventory());
 
             input = Console.ReadKey().KeyChar;
             int playerIndex = -1;
@@ -454,7 +454,7 @@ namespace HelloWorld
                         return;
                     }
             }
-            shop.Sell(player1, itemIndex, playerIndex);
+            shop.Sell(player, itemIndex, playerIndex);
 
             GetInput(out input, "Yes", "No", "Would you like to leave the shop?");
             if(input == '2')

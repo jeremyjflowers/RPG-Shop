@@ -29,9 +29,9 @@ namespace HelloWorld
             level = levelVal;
         }
 
-        public virtual float Attack(Character enemy)
+        public virtual float Attack(Character character)
         {
-            float damageTaken = enemy.TakeDamage(baseDamage);
+            float damageTaken = character.TakeDamage(baseDamage);
             return damageTaken;
         }
 
@@ -45,7 +45,7 @@ namespace HelloWorld
             return damageVal;
         }
 
-        public void LevelUp(float level, int EXP)
+        public void LevelUp()
         {
             while (EXP > 100)
             {
@@ -53,12 +53,12 @@ namespace HelloWorld
                 if (EXP <= 100)
                 {
                     level += 1;
-                    UpgradeStats(health, baseDamage);
+                    UpgradeStats();
                 }
             }
         }
 
-        public void UpgradeStats(float health, int baseDamage)
+        public void UpgradeStats()
         {
             Console.WriteLine("LEVEL UP!!!! You are now level " + level + "! Please choose a stat to upgrade.");
             Console.WriteLine("1. Increase Health");

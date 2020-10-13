@@ -12,7 +12,7 @@ namespace HelloWorld
         public Shop()
         {
             gold = 0;
-            inventory = new Item[10];
+            inventory = new Item[9];
         }
 
         public Shop(Item[] item)
