@@ -49,7 +49,7 @@ namespace HelloWorld
         {
             while (EXP > 100)
             {
-                EXP += 1;
+                EXP += 5;
                 if (EXP <= 100)
                 {
                     level += 1;

@@ -145,21 +145,13 @@ namespace HelloWorld
             dualBlades.cost = 24;
         }
 
-        public void IntializeEnemies(Character enemy)
+        public void IntializeEnemies(Character character)
         {
             enemy1 = new Character ("Bandit", 50, 10, 12);
             enemy2 = new Character ("Wolf", 10, 5, 5);
             enemy3 = new Character ("Orc", 112, 24, 25);
             enemy4 = new Character ("Boss Bandit", 150, 24, 20);
             enemy5 = new Character("Giant", 220, 30, 39);
-        }
-
-        public void CreateCharacter()
-        {
-            Console.WriteLine("\nPlease state your name, traveler.");
-            string name = Console.ReadLine();
-            Player player = new Player();
-            player.PrintStats();
         }
 
         public void SwapEquipment(Player player)
@@ -248,16 +240,14 @@ namespace HelloWorld
         public void OpenMainMenu()
         {
             char input;
-            GetInput(out input, "Create Character", "Load Character", "Please select an option");
+            GetInput(out input, "New Game", "Load Game", "Please select an option");
             if(input == '1')
             {
-                CreateCharacter();
                 Save();
                 Explore();
             }
             else if(input == '2')
             {
-                player = new Player();
                 Load();
                 Explore();
                 return;
@@ -305,8 +295,6 @@ namespace HelloWorld
                 else if(input == '2')
                 {
                     SwapEquipment(player);
-                    float damageTaken = enemy.Attack(player);
-                    Console.WriteLine(enemy.GetName() + " dealt " + damageTaken + " damage to " + player.GetName());
                 }
                 else
                 {
@@ -316,7 +304,7 @@ namespace HelloWorld
 
                 if(player.GetIsAlive())
                 {
-                    player.gainedGold();
+                    player.GainedGold();
                     player.GainEXP();
                     continue;
                 }
@@ -459,7 +447,7 @@ namespace HelloWorld
             GetInput(out input, "Yes", "No", "Would you like to leave the shop?");
             if(input == '2')
             {
-                return;
+                ShopMenu(shop);
             }
             Console.WriteLine("Come again, traveler!");
             Explore();
@@ -468,6 +456,10 @@ namespace HelloWorld
         //Performed once when the game begins
         public void Start()
         {
+            Console.WriteLine("What is your name?");
+            string name = Console.ReadLine();
+            player = new Player(name, 100, 9, 1, 50, 9);
+            player.PrintStats();
             IntializeItems();
             IntializeEnemies(enemy1);
             IntializeEnemies(enemy2);

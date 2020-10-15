@@ -46,7 +46,7 @@ namespace HelloWorld
 
         public void EquipEquipment(int playerIndex)
         {
-            if(Contains(playerIndex))
+            if(Contains(playerIndex) == true)
             {
                 currentWeapon = inventory[playerIndex];
             }
@@ -74,10 +74,10 @@ namespace HelloWorld
             return gold;
         }
 
-        public float gainedGold()
+        public float GainedGold()
         {
-            float gainedGold = gold + 12;
-            return gainedGold;
+            float GainedGold = GetGold() + 12;
+            return GainedGold;
         }
 
         public override void PrintStats()
