@@ -171,6 +171,7 @@ namespace HelloWorld
                         player.EquipEquipment(0);
                         Console.WriteLine("You have equipped " + inventory[0].name);
                         Console.WriteLine("Damage has been increased by " + inventory[0].statBoost);
+                        Console.ReadLine();
                         break;
                     }
                 case '2':
@@ -178,6 +179,7 @@ namespace HelloWorld
                         player.EquipEquipment(1);
                         Console.WriteLine("You have equipped " + inventory[1].name);
                         Console.WriteLine("Damage has been increased by " + inventory[1].statBoost);
+                        Console.ReadLine();
                         break;
                     }
                 case '3':
@@ -185,6 +187,7 @@ namespace HelloWorld
                         player.EquipEquipment(2);
                         Console.WriteLine("You have equipped " + inventory[2].name);
                         Console.WriteLine("Damage has been increased by " + inventory[2].statBoost);
+                        Console.ReadLine();
                         break;
                     }
                 case '4':
@@ -192,6 +195,7 @@ namespace HelloWorld
                         player.EquipEquipment(3);
                         Console.WriteLine("You have equipped " + inventory[3].name);
                         Console.WriteLine("Damage has been increased by " + inventory[3].statBoost);
+                        Console.ReadLine();
                         break;
                     }
                 case '5':
@@ -199,6 +203,7 @@ namespace HelloWorld
                         player.EquipEquipment(4);
                         Console.WriteLine("You have equipped " + inventory[4].name);
                         Console.WriteLine("Damage has been increased by " + inventory[4].statBoost);
+                        Console.ReadLine();
                         break;
                     }
                 case '6':
@@ -206,6 +211,7 @@ namespace HelloWorld
                         player.EquipEquipment(5);
                         Console.WriteLine("You have equipped " + inventory[5].name);
                         Console.WriteLine("Damage has been increased by " + inventory[5].statBoost);
+                        Console.ReadLine();
                         break;
                     }
                 case '7':
@@ -213,6 +219,7 @@ namespace HelloWorld
                         player.EquipEquipment(6);
                         Console.WriteLine("You have equipped " + inventory[6].name);
                         Console.WriteLine("Damage has been increased by " + inventory[6].statBoost);
+                        Console.ReadLine();
                         break;
                     }
                 case '8':
@@ -220,6 +227,7 @@ namespace HelloWorld
                         player.EquipEquipment(7);
                         Console.WriteLine("You have equipped " + inventory[7].name);
                         Console.WriteLine("Damage has been increased by " + inventory[7].statBoost);
+                        Console.ReadLine();
                         break;
                     }
                 case '9':
@@ -227,11 +235,13 @@ namespace HelloWorld
                         player.EquipEquipment(8);
                         Console.WriteLine("You have equipped " + inventory[8].name);
                         Console.WriteLine("Damage has been increased by " + inventory[8].statBoost);
+                        Console.ReadLine();
                         break;
                     }
                 default:
                     {
                         Console.WriteLine("You did not swap equipment");
+                        Console.ReadLine();
                         break;
                     }
             }
@@ -274,6 +284,7 @@ namespace HelloWorld
 
         public void BattleStart(Player player, Character enemy)
         {
+            Console.Clear();
             while(player.GetIsAlive() && enemy.GetIsAlive())
             {
                 Console.WriteLine(player);
@@ -287,10 +298,11 @@ namespace HelloWorld
                 if(input == '1')
                 {
                     float damageTaken = player.Attack(enemy);
-                    Console.WriteLine(player.GetName() + " dealt " + damageTaken + " damage to " + enemy.GetName());
+                    Console.WriteLine("\n" + player.GetName() + " dealt " + damageTaken + " damage to " + enemy.GetName());
 
                     damageTaken = enemy.Attack(player);
                     Console.WriteLine(enemy.GetName() + " dealt " + damageTaken + " damage to " + player.GetName());
+                    Console.ReadKey();
                 }
                 else if(input == '2')
                 {
@@ -304,8 +316,6 @@ namespace HelloWorld
 
                 if(player.GetIsAlive())
                 {
-                    player.GainedGold();
-                    player.GainEXP();
                     continue;
                 }
                 else
@@ -384,11 +394,8 @@ namespace HelloWorld
                 Console.WriteLine("\nYou simply cannot afford this item traveler.");
                 return;
             }
-
-            Console.WriteLine("\nPlease choose a slot to place your item");
             ShowInventory(player.GetInventory());
 
-            input = Console.ReadKey().KeyChar;
             int playerIndex = -1;
             switch(input)
             {
@@ -442,6 +449,7 @@ namespace HelloWorld
                         return;
                     }
             }
+
             shop.Sell(player, itemIndex, playerIndex);
 
             GetInput(out input, "Yes", "No", "Would you like to leave the shop?");
@@ -458,7 +466,7 @@ namespace HelloWorld
         {
             Console.WriteLine("What is your name?");
             string name = Console.ReadLine();
-            player = new Player(name, 100, 9, 1, 50, 9);
+            player = new Player(name, 100, 9, 1, 50);
             player.PrintStats();
             IntializeItems();
             IntializeEnemies(enemy1);

@@ -89,7 +89,7 @@ namespace HelloWorld
 
         public float GainEXP()
         {
-           int gainedEXP = EXP + 9;
+           float GainEXP = EXP + 9;
            return EXP;
         }
 

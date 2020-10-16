@@ -18,11 +18,11 @@ namespace HelloWorld
             inventory = new Item[3];
         }
 
-        public Player(string nameVal, float healthVal, int damageVal, float levelVal, float goldVal, int inventorySize) 
+        public Player(string nameVal, float healthVal, int damageVal, float levelVal, float goldVal) 
             : base(nameVal, healthVal, damageVal, levelVal)
         {
             gold = goldVal;
-            inventory = new Item[inventorySize];
+            inventory = new Item[9];
         }
 
         public Item[] GetInventory()
@@ -76,8 +76,8 @@ namespace HelloWorld
 
         public float GainedGold()
         {
-            float GainedGold = GetGold() + 12;
-            return GainedGold;
+            float GainedGold = gold += 12;
+            return gold;
         }
 
         public override void PrintStats()
