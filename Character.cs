@@ -87,9 +87,9 @@ namespace HelloWorld
             Console.WriteLine("EXP: " + EXP);
         }
 
-        public float GainEXP()
+        public int GainEXP()
         {
-           float GainEXP = EXP + 9;
+            EXP++;
            return EXP;
         }
 

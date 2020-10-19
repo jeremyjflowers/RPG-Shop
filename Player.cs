@@ -8,7 +8,7 @@ namespace HelloWorld
 {
     class Player : Character
     {
-        private float gold;
+        private int gold;
         private Item[] inventory;
         private Item currentWeapon;
 
@@ -18,7 +18,7 @@ namespace HelloWorld
             inventory = new Item[3];
         }
 
-        public Player(string nameVal, float healthVal, int damageVal, float levelVal, float goldVal) 
+        public Player(string nameVal, float healthVal, int damageVal, float levelVal, int goldVal) 
             : base(nameVal, healthVal, damageVal, levelVal)
         {
             gold = goldVal;
@@ -28,11 +28,6 @@ namespace HelloWorld
         public Item[] GetInventory()
         {
             return inventory;
-        }
-
-        public void AddToInventory(Item item, int playerIndex)
-        {
-            inventory[playerIndex] = item;
         }
 
         public bool Contains(int playerIndex)
@@ -63,20 +58,15 @@ namespace HelloWorld
             if(gold >= item.cost)
             {
                 gold -= item.cost;
-                AddToInventory(item, playerIndex);
+                inventory[playerIndex] = item;
                 return true;
             }
             return false;
         }
 
-        public float GetGold()
+        public int GetGold(int gainedGold)
         {
-            return gold;
-        }
-
-        public float GainedGold()
-        {
-            float GainedGold = gold += 12;
+            gainedGold = gold + 10;
             return gold;
         }
 

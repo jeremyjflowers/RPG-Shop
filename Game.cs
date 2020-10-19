@@ -316,6 +316,8 @@ namespace HelloWorld
 
                 if(player.GetIsAlive())
                 {
+                    player.GetGold();
+                    player.GainEXP();
                     continue;
                 }
                 else
