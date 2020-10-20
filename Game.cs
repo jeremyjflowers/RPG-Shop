@@ -316,8 +316,13 @@ namespace HelloWorld
 
                 if(player.GetIsAlive())
                 {
+<<<<<<< Updated upstream
                     player.GetGold();
                     player.GainEXP();
+=======
+                    player.GainedGold();
+                    player.LevelUp();
+>>>>>>> Stashed changes
                     continue;
                 }
                 else
@@ -468,7 +473,7 @@ namespace HelloWorld
         {
             Console.WriteLine("What is your name?");
             string name = Console.ReadLine();
-            player = new Player(name, 100, 9, 1, 50);
+            player = new Player(name, 100, 4, 1, 50);
             player.PrintStats();
             IntializeItems();
             IntializeEnemies(enemy1);

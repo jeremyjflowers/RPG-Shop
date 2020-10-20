@@ -49,8 +49,8 @@ namespace HelloWorld
 
         public override float Attack(Character enemy)
         {
-            int totalDamage = baseDamage + currentWeapon.statBoost;
-            return enemy.TakeDamage(totalDamage);
+            float totalDamage = baseDamage + currentWeapon.statBoost;
+            return enemy.TakeDamage((int)totalDamage);
         }
 
         public bool Buy(Item item, int playerIndex)
@@ -64,10 +64,21 @@ namespace HelloWorld
             return false;
         }
 
+<<<<<<< Updated upstream
         public int GetGold(int gainedGold)
         {
             gainedGold = gold + 10;
             return gold;
+=======
+        public float GetGold()
+        {
+            return gold;
+        }
+
+        public void GainedGold()
+        {
+            float GainedGold = gold += 16;
+>>>>>>> Stashed changes
         }
 
         public override void PrintStats()

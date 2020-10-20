@@ -29,9 +29,9 @@ namespace HelloWorld
             level = levelVal;
         }
 
-        public virtual float Attack(Character character)
+        public virtual float Attack(Character enemy)
         {
-            float damageTaken = character.TakeDamage(baseDamage);
+            float damageTaken = enemy.TakeDamage(baseDamage);
             return damageTaken;
         }
 
@@ -47,14 +47,12 @@ namespace HelloWorld
 
         public void LevelUp()
         {
-            while (EXP > 100)
+            EXP++;
+
+            if (EXP == 100)
             {
-                EXP += 5;
-                if (EXP <= 100)
-                {
-                    level += 1;
-                    UpgradeStats();
-                }
+                level += 1;
+                UpgradeStats();
             }
         }
 
@@ -87,12 +85,15 @@ namespace HelloWorld
             Console.WriteLine("EXP: " + EXP);
         }
 
+<<<<<<< Updated upstream
         public int GainEXP()
         {
             EXP++;
            return EXP;
         }
 
+=======
+>>>>>>> Stashed changes
         public bool GetIsAlive()
         {
             return health > 0;
