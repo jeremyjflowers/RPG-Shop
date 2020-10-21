@@ -14,8 +14,8 @@ namespace HelloWorld
 
         public Player() : base()
         {
-            gold = 100;
-            inventory = new Item[3];
+            gold = 50;
+            inventory = new Item[9];
         }
 
         public Player(string nameVal, float healthVal, int damageVal, float levelVal, int goldVal) 
@@ -63,13 +63,6 @@ namespace HelloWorld
             }
             return false;
         }
-
-<<<<<<< Updated upstream
-        public int GetGold(int gainedGold)
-        {
-            gainedGold = gold + 10;
-            return gold;
-=======
         public float GetGold()
         {
             return gold;
@@ -77,8 +70,7 @@ namespace HelloWorld
 
         public void GainedGold()
         {
-            float GainedGold = gold += 16;
->>>>>>> Stashed changes
+            float GainedGold = gold += 26;
         }
 
         public override void PrintStats()

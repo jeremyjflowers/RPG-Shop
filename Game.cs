@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
+using System.Reflection.Metadata.Ecma335;
 
 namespace HelloWorld
 {
@@ -84,20 +85,20 @@ namespace HelloWorld
             }
         }
 
+        public void ShowInventory(Item[] inventory)
+        {
+            for (int i = 0; i < inventory.Length; i++)
+            {
+                Console.WriteLine((i + 1) + ". " + inventory[i].name + " " + inventory[i].cost + " Gold");
+            }
+        }
+
         public void ClearScreen()
         {
             Console.WriteLine("Prees any key to proceed");
             Console.Write("> ");
             Console.ReadKey();
             Console.Clear();
-        }
-
-        public void ShowInventory(Item[] inventory)
-        {
-            for(int i = 0; i < inventory.Length; i++)
-            {
-                Console.WriteLine((i + 1) + ". " + inventory[i].name + " " + inventory[i].cost + " Gold"); 
-            }
         }
 
         public void Save()
@@ -112,6 +113,55 @@ namespace HelloWorld
             StreamReader reader = new StreamReader("SaveData.txt");
             player.Load(reader);
             reader.Close();
+        }
+
+        public void OpenMainMenu()
+        {
+            char input;
+            GetInput(out input, "New Game", "Load Game", "Please select an option");
+            if (input == '1')
+            {
+                Console.WriteLine("What is your name?");
+                string name = Console.ReadLine();
+                player = new Player(name, 100, 6, 1, 50);
+                player.PrintStats();
+                Save();
+                Explore();
+            }
+            else if (input == '2')
+            {
+                player = new Player();
+                Load();
+                Explore();
+                return;
+            }
+        }
+
+        public void IntializeEnemies(Character character)
+        {
+            enemy1 = new Character("Bandit", 50, 10, 12);
+            enemy2 = new Character("Wolf", 10, 5, 5);
+            enemy3 = new Character("Orc", 112, 24, 25);
+            enemy4 = new Character("Boss Bandit", 150, 24, 20);
+            enemy5 = new Character("Giant", 220, 30, 39);
+        }
+
+        public void Explore()
+        {
+            while (gameOver == false)
+            {
+                char input;
+                GetInput(out input, "Battle an enemy", "Go to shop", "What would you like to do first?");
+                if (input == '2')
+                {
+                    ShopMenu(shop);
+                }
+                BattleStart(player, enemy2);
+                BattleStart(player, enemy1);
+                BattleStart(player, enemy4);
+                BattleStart(player, enemy3);
+                BattleStart(player, enemy5);
+            }
         }
 
         public void IntializeItems()
@@ -143,15 +193,6 @@ namespace HelloWorld
             dualBlades.name = "Twin Swords";
             dualBlades.statBoost = 43;
             dualBlades.cost = 24;
-        }
-
-        public void IntializeEnemies(Character character)
-        {
-            enemy1 = new Character ("Bandit", 50, 10, 12);
-            enemy2 = new Character ("Wolf", 10, 5, 5);
-            enemy3 = new Character ("Orc", 112, 24, 25);
-            enemy4 = new Character ("Boss Bandit", 150, 24, 20);
-            enemy5 = new Character("Giant", 220, 30, 39);
         }
 
         public void SwapEquipment(Player player)
@@ -247,41 +288,6 @@ namespace HelloWorld
             }
         }
 
-        public void OpenMainMenu()
-        {
-            char input;
-            GetInput(out input, "New Game", "Load Game", "Please select an option");
-            if(input == '1')
-            {
-                Save();
-                Explore();
-            }
-            else if(input == '2')
-            {
-                Load();
-                Explore();
-                return;
-            }
-        }
-
-        public void Explore()
-        {
-            while(gameOver == false)
-            {
-                char input;
-                GetInput(out input, "Battle an enemy", "Go to shop", "What would you like to do first?");
-                if(input == '2')
-                {
-                    ShopMenu(shop);
-                }
-                BattleStart(player, enemy2);
-                BattleStart(player, enemy1);
-                BattleStart(player, enemy4);
-                BattleStart(player, enemy3);
-                BattleStart(player, enemy5);
-            }
-        }
-
         public void BattleStart(Player player, Character enemy)
         {
             Console.Clear();
@@ -313,22 +319,23 @@ namespace HelloWorld
                     Save();
                 }
                 Console.Clear();
+            }
 
-                if(player.GetIsAlive())
+            if (player.GetIsAlive())
+            {
+                player.GainedGold();
+                player.LevelUp();
+
+                char input;
+                GetInput(out input, "Battle an enemy", "Go to shop", "What would you like to do now");
+                if (input == '2')
                 {
-<<<<<<< Updated upstream
-                    player.GetGold();
-                    player.GainEXP();
-=======
-                    player.GainedGold();
-                    player.LevelUp();
->>>>>>> Stashed changes
-                    continue;
+                    ShopMenu(shop);
                 }
-                else
-                {
-                    gameOver = true;
-                }
+            }
+            else
+            {
+                gameOver = true;
             }
         }
 
@@ -471,10 +478,6 @@ namespace HelloWorld
         //Performed once when the game begins
         public void Start()
         {
-            Console.WriteLine("What is your name?");
-            string name = Console.ReadLine();
-            player = new Player(name, 100, 4, 1, 50);
-            player.PrintStats();
             IntializeItems();
             IntializeEnemies(enemy1);
             IntializeEnemies(enemy2);

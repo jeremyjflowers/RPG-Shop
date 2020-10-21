@@ -47,7 +47,7 @@ namespace HelloWorld
 
         public void LevelUp()
         {
-            EXP++;
+            GainEXP();
 
             if (EXP == 100)
             {
@@ -85,15 +85,11 @@ namespace HelloWorld
             Console.WriteLine("EXP: " + EXP);
         }
 
-<<<<<<< Updated upstream
-        public int GainEXP()
+        public void GainEXP()
         {
-            EXP++;
-           return EXP;
+            EXP+= 15;
         }
 
-=======
->>>>>>> Stashed changes
         public bool GetIsAlive()
         {
             return health > 0;
@@ -118,6 +114,7 @@ namespace HelloWorld
             float health = 0;
             int baseDamage = 0;
             float level = 0;
+            float gold = 0;
 
             if (float.TryParse(reader.ReadLine(), out health) == false)
             {
@@ -131,7 +128,6 @@ namespace HelloWorld
             {
                 return false;
             }
-
             this.name = name;
             this.health = health;
             this.baseDamage = baseDamage;
